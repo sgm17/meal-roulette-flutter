@@ -1,0 +1,107 @@
+name: meal_roulette
+description: "The app encourages social interaction, cultural exchange, and community building within student environments."
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+# In Windows, build-name is used as the major, minor, and patch parts
+# of the product and file versions while build-number is used as the build suffix.
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.9.2
+
+# Dependencies specify other packages that your package needs in order to work.
+# To automatically upgrade your package dependencies to the latest versions
+# consider running `flutter pub upgrade --major-versions`. Alternatively,
+# dependencies can be manually updated by changing the version numbers below to
+# the latest version available on pub.dev. To see which dependencies have newer
+# versions available, run `flutter pub outdated`.
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.8
+
+  #State Management updated provider version
+  provider: ^6.1.2
+
+  #Loading image from Network fastly
+  cached_network_image: ^3.4.1
+
+  #added package to use svg assets as flutter hasn't own
+  flutter_svg: ^2.0.10+1
+
+  #package to fetch response from network like http and get.connect
+  dio: ^5.7.0
+
+  #using router as this app supports deep linking later
+  go_router: ^16.3.0
+
+  #Easy pagination and pull down to refresh
+  pull_to_refresh: ^2.0.0
+
+  #form builder boiler plate code for flutter forms
+  flutter_form_builder: ^10.2.0
+
+# flutter_launcher_icons:
+  #   android: "ic_launcher"
+  # ios: true
+    # web:
+  # generate: true
+    # windows:
+  # generate: true
+    # macos:
+  # generate: true
+  # remove_alpha_ios: true
+  # background_color_ios: "#844BC5"
+  # image_path: "assets/images/app_icon.png"
+  # adaptive_icon_foreground: "assets/images/app_icon.png"
+  # adaptive_icon_background: "#844BC5"
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # The "flutter_lints" package below contains a set of recommended lints to
+  # encourage good coding practices. The lint set provided by the package is
+  # activated in the `analysis_options.yaml` file located at the root of your
+  # package. See that file for information about deactivating specific lint
+  # rules and activating additional ones.
+  flutter_lints: ^6.0.0
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  # generate: true #this is for enabling localization
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/images/
+    - assets/icons/
+
+  # To add custom fonts to your application
+
+  fonts:
+      - family: Inter
+        fonts:
+          - asset: assets/fonts/Inter-Bold.otf
+            weight: 700 # Bold weight
+          - asset: assets/fonts/Inter-Medium.otf
+            weight: 500 # Medium weight
+          - asset: assets/fonts/Inter-Regular.otf
+            weight: 400 # Regular weight
