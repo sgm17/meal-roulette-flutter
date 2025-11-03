@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:meal_roulette/configs/resources/resources.dart';
 import 'package:meal_roulette/configs/resources/sizing.dart';
 import 'package:meal_roulette/modules/mensa/data/models/mensa_models.dart';
+import 'package:meal_roulette/routes/app_routes_constants.dart';
 
 class MensaCard extends StatelessWidget {
   final MensaModel mensaModel;
@@ -18,14 +20,16 @@ class MensaCard extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       clipBehavior: Clip.antiAlias,
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          context.goNamed(AppRouteConstants.details);
+        },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Hero(
               tag: mensaModel.name,
               child: CachedNetworkImage(
-                height: 120.h,
+                height: 135.h,
                 width: double.infinity,
                 imageUrl: mensaModel.imageUrl,
                 fit: BoxFit.cover,
@@ -34,7 +38,7 @@ class MensaCard extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 8.w),
+              padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 8.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -42,7 +46,7 @@ class MensaCard extends StatelessWidget {
                   SizedBox(height: 2.h),
                   Text(mensaModel.tags, style: R.textStyles.font10R.copyWith(color: R.colors.textGrey), maxLines: 1, softWrap: true,
                     overflow: TextOverflow.ellipsis,),
-                  SizedBox(height: 20.h),
+                  SizedBox(height: 16.h),
                   Row(
                     children: [
                       Icon(Icons.location_on_outlined, size: 14.sp, color: R.colors.textGrey,),
@@ -66,9 +70,11 @@ class MensaCard extends StatelessWidget {
                       Flexible(child: Text('Capacity: ${mensaModel.capacity} students', style: R.textStyles.font10R.copyWith(color: R.colors.textGrey), softWrap: true, maxLines: 1, overflow: TextOverflow.ellipsis,)),
                     ],
                   ),
-                  SizedBox(height: 20.h),
+                  SizedBox(height: 8.h),
                   FilledButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      context.goNamed(AppRouteConstants.matches);
+                    },
                     icon: Icon(Icons.local_dining_outlined, color: R.colors.white,),
                     label: Text('Find Lunch Buddy', style: R.textStyles.font11M.copyWith(color: R.colors.white), maxLines: 1, softWrap: true, overflow: TextOverflow.ellipsis,),
                     style: FilledButton.styleFrom(

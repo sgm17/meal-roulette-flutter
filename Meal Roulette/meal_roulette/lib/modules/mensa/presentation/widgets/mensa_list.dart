@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meal_roulette/configs/resources/sizing.dart';
 import 'package:meal_roulette/modules/mensa/data/models/mensa_models.dart';
 
 import 'mensa_card.dart';
@@ -21,9 +22,9 @@ class MensaList extends StatelessWidget {
           itemCount: mensaModels.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: crossAxisCount,
-            mainAxisExtent: 330,
-            crossAxisSpacing: 12,
-            mainAxisSpacing: 12,
+            mainAxisExtent: 350.h,
+            crossAxisSpacing: 12.w,
+            mainAxisSpacing: 12.w,
           ),
           itemBuilder: (context, index) {
             final mensa = mensaModels[index];

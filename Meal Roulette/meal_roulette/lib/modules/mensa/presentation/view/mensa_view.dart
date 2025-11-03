@@ -83,6 +83,7 @@ class MensaView extends StatelessWidget {
     ];
 
     return Scaffold(
+      backgroundColor: R.colors.white,
       appBar: AppBar(
         centerTitle: true,
         toolbarHeight: 70.h,
