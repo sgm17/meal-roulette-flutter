@@ -7,7 +7,7 @@ class AppColors {
   Color yellow = const Color(0xffFCEE21);
   Color green = const Color(0xff46B96C);
   Color lightBlue = const Color(0xff98E9FB);
-  Color transparent = const Color(0x0000ffff);
+  Color transparent = const Color(0x00000000);
 
   Color backgroundColor = const Color(0xffFFFFFF);
   Color primaryColor = const Color(0xffEE5B2B);
@@ -17,6 +17,7 @@ class AppColors {
 
   Color splashGrad1 = const Color(0xffEE5B2B);
   Color splashGrad2 = const Color(0xffFAC938);
+  Color splashGrad3 = const Color(0xffF04242);
 
   Color bgContainer = const Color(0xffF4F0EB);
   Color bgButtons = const Color(0xff5F019B);

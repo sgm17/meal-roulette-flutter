@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:meal_roulette/configs/common_widgets/gradient_text.dart';
 import 'package:meal_roulette/configs/resources/resources.dart';
 import 'package:meal_roulette/configs/resources/sizing.dart';
 import 'package:meal_roulette/modules/matching/data/models/matching_models.dart';
 import 'package:meal_roulette/modules/matching/presentation/widgets/profile_detail_section.dart';
+import 'package:meal_roulette/routes/app_routes_constants.dart';
 
 /// Main screen showing a list of matches with segmented tabs (Active / Past).
 /// It demonstrates responsive layout: single column on narrow screens and two columns
@@ -151,7 +153,9 @@ class _MatchingViewState extends State<MatchingView> {
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  ClipOval(child: Text(match.avatar, style: const TextStyle(fontSize: 36))),
+                                  ClipOval(child: GestureDetector( child: Text(match.avatar, style: const TextStyle(fontSize: 36)), onTap: (){
+                                    context.goNamed(AppRouteConstants.profile);
+                                  },)),
                                   SizedBox(width: 12.h),
                                   Expanded(
                                     child: Column(
