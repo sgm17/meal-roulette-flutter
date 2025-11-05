@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:meal_roulette/configs/utils/aap_utils.dart';
+import 'package:meal_roulette/modules/details/presentation/view/details_view.dart';
+import 'package:meal_roulette/modules/matching/presentation/view/matching_view.dart';
+import 'package:meal_roulette/modules/mensa/presentation/view/mensa_view.dart';
+import 'package:meal_roulette/modules/profile/presentation/view/profile_view.dart';
+import 'package:meal_roulette/splash.dart';
 
 import 'app_routes_constants.dart';
 
@@ -22,24 +28,24 @@ class AppRoutes {
     },*/
     //errorBuilder: (context, state) => ErrorPage(state.error),
     routes: [
-     /* GoRoute(
+      GoRoute(
         path: AppRouteConstants.defaultRoute,
         pageBuilder: (context, state) => NoTransitionPage(child: SplashView()),
       ),
-      GoRoute(path: AppRouteConstants.home, name: AppRouteConstants.home, pageBuilder: (context, state) => NoTransitionPage(child: HomeView()), routes: [
-        GoRoute(path: AppRouteConstants.matches, name: AppRouteConstants.matches, pageBuilder: (context, state) => NoTransitionPage(child: SelectMatch()), routes: [
+      GoRoute(path: AppRouteConstants.home, name: AppRouteConstants.home, pageBuilder: (context, state) => Utils().buildPageWithSlideTransition(context: context, state: state, child: MensaView()), routes: [
+        GoRoute(path: AppRouteConstants.matches, name: AppRouteConstants.matches, pageBuilder: (context, state) => Utils().buildPageWithRightToLeftTransition(context: context, state: state,child: MatchingView()), routes: [
           GoRoute(
             path: AppRouteConstants.profile,
             name: AppRouteConstants.profile,
-            pageBuilder: (context, state) => NoTransitionPage(child: ViewProfile()),
+            pageBuilder: (context, state) => NoTransitionPage(child: ProfileView()),
             routes: [],
           ),
-        ]),
-        GoRoute(path: AppRouteConstants.details, name: AppRouteConstants.details, pageBuilder: (context, state) => NoTransitionPage(child: DetailsView()), routes: []),
-        GoRoute(path: AppRouteConstants.notifications, name: AppRouteConstants.notifications, pageBuilder: (context, state) => NoTransitionPage(child: NotificationsView()), routes: []),
-        GoRoute(path: AppRouteConstants.settings, name: AppRouteConstants.settings, pageBuilder: (context, state) => NoTransitionPage(child: SettingsView()), routes: []),
-        GoRoute(path: AppRouteConstants.contact, name: AppRouteConstants.contact, pageBuilder: (context, state) => NoTransitionPage(child: ContactView()), routes: []),
-        GoRoute(path: AppRouteConstants.privacy, name: AppRouteConstants.privacy, pageBuilder: (context, state) => NoTransitionPage(child: PrivacyView()), routes: []),
-      ],),*/],
+         ]),
+        GoRoute(path: AppRouteConstants.details, name: AppRouteConstants.details, pageBuilder: (context, state) => Utils().buildPageWithRightToLeftTransition(context: context, state: state,child: DetailsView()), routes: []),
+        // GoRoute(path: AppRouteConstants.notifications, name: AppRouteConstants.notifications, pageBuilder: (context, state) => NoTransitionPage(child: NotificationsView()), routes: []),
+        // GoRoute(path: AppRouteConstants.settings, name: AppRouteConstants.settings, pageBuilder: (context, state) => NoTransitionPage(child: SettingsView()), routes: []),
+        // GoRoute(path: AppRouteConstants.contact, name: AppRouteConstants.contact, pageBuilder: (context, state) => NoTransitionPage(child: ContactView()), routes: []),
+        // GoRoute(path: AppRouteConstants.privacy, name: AppRouteConstants.privacy, pageBuilder: (context, state) => NoTransitionPage(child: PrivacyView()), routes: []),
+      ],),],
   );
 }

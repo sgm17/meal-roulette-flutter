@@ -1,6 +1,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:meal_roulette/configs/common_models/parent_response.dart';
 import 'package:meal_roulette/configs/common_widgets/app_loader.dart';
@@ -10,6 +11,65 @@ import 'package:meal_roulette/configs/utils/singleton.dart';
 import 'package:meal_roulette/routes/app_routes.dart';
 
 class Utils {
+
+  /// Custom transition for all pages
+  CustomTransitionPage<T> buildPageWithSlideTransition<T>({
+    required BuildContext context,
+    required GoRouterState state,
+    required Widget child,
+  }) {
+    return CustomTransitionPage<T>(
+      key: state.pageKey,
+      child: child,
+      transitionDuration: const Duration(milliseconds: 800),
+      reverseTransitionDuration: const Duration(milliseconds: 550),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(0, 1); // start from bottom
+        const end = Offset.zero;
+        final curve = Curves.easeOutCubic;
+
+        final tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: FadeTransition(
+            opacity: animation,
+            child: child,
+          ),
+        );
+      },
+    );
+  }
+  /// Custom transition for all pages (Right-to-Left Slide)
+  CustomTransitionPage<T> buildPageWithRightToLeftTransition<T>({
+    required BuildContext context,
+    required GoRouterState state,
+    required Widget child,
+  }) {
+    return CustomTransitionPage<T>(
+      key: state.pageKey,
+      child: child,
+      transitionDuration: const Duration(milliseconds: 500),
+      reverseTransitionDuration: const Duration(milliseconds: 400),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(1.0, 0.0); // start from right
+        const end = Offset.zero;
+        const curve = Curves.easeOutCubic;
+
+        final tween = Tween(begin: begin, end: end)
+            .chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: FadeTransition(
+            opacity: animation,
+            child: child,
+          ),
+        );
+      },
+    );
+  }
+
+
   void showCustomModalBottomSheet({required BuildContext context, required Widget widget}) {
     showModalBottomSheet<void>(
       context: context,
