@@ -71,7 +71,7 @@ class _ProfileViewState extends State<ProfileView> {
                     },
                   ),
 
-                  SizedBox(height: 80.h),
+                  SizedBox(height: 100.h),
 
                   // Stats cards row (adaptive)
                   LayoutBuilder(builder: (context, constraints) {
