@@ -12,7 +12,6 @@ class MensaCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Card(
       color: R.colors.white,
       elevation: 1,
@@ -80,7 +79,8 @@ class MensaCard extends StatelessWidget {
                     style: FilledButton.styleFrom(
                       minimumSize: Size.fromHeight(40.h),
                       backgroundColor: R.colors.primaryColor,
-                      foregroundColor: theme.colorScheme.onPrimaryContainer,
+                      foregroundColor: R.colors.white,
+
                     ),
                   ),
                 ],

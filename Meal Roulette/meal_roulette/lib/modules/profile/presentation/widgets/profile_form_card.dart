@@ -40,13 +40,13 @@ class _ProfileFormCardState extends State<ProfileFormCard> with TickerProviderSt
     super.dispose();
   }
 
-  void _onSaveTap() {
+ /* void _onSaveTap() {
     if (widget.editing) {
       if (_formKey.currentState?.validate() ?? false) {
         widget.onSave();
       }
     }
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -125,7 +125,9 @@ class _ProfileFormCardState extends State<ProfileFormCard> with TickerProviderSt
                   children: [
                     Expanded(
                       child: FilledButton.icon(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).maybePop();
+                        },
                         icon: Icon(Icons.local_dining_outlined, color: R.colors.transparent),
                         label: Text(
                           'Save Changes',

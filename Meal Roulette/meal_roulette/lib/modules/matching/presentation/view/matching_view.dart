@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:meal_roulette/configs/common_widgets/gradient_text.dart';
 import 'package:meal_roulette/configs/resources/resources.dart';
 import 'package:meal_roulette/configs/resources/sizing.dart';
+import 'package:meal_roulette/configs/common_widgets/tag_chip.dart';
 import 'package:meal_roulette/modules/matching/data/models/matching_models.dart';
 import 'package:meal_roulette/modules/matching/presentation/widgets/profile_detail_section.dart';
 import 'package:meal_roulette/routes/app_routes_constants.dart';
@@ -49,7 +50,12 @@ class _MatchingViewState extends State<MatchingView> {
       appBar: AppBar(
         centerTitle: true,
         toolbarHeight: 70.h,
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: true,
+        leadingWidth: 30.w,
+        leading: IconButton(
+          onPressed: () => Navigator.of(context).maybePop(),
+          icon: Icon(Icons.arrow_back_rounded, color: R.colors.textBlack, size: 20.sp),
+        ),
         title: Column(
           children: [
             GradientText(
@@ -180,12 +186,13 @@ class _MatchingViewState extends State<MatchingView> {
                               ),
 
                               SizedBox(height: 12.h),
-                              Text(
+                              if(isExpanded)...[
+                                Text(
                                 "Shared Interests",
                                 style: R.textStyles.font10R.copyWith(color: R.colors.textGrey),
                               ),
                               SizedBox(height: 8.h),
-
+                              ],
                               // Interests chips (always visible)
                               Wrap(
                                 spacing: 4,
@@ -193,20 +200,7 @@ class _MatchingViewState extends State<MatchingView> {
                                 children: match.interests
                                     .map(
                                       (interest) =>
-                                          Container(
-                                            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                                            decoration: BoxDecoration(
-                                              color: R.colors.green,
-                                              borderRadius: BorderRadius.circular(20),
-                                            ),
-                                            child: Text(
-                                              interest,
-                                              style: R.textStyles.font11R.copyWith(
-                                                color: R.colors.white,
-                                                height: 1.2, // tighter line height for a compact tag look
-                                              ),
-                                            ),
-                                          ),
+                                          TagChip(label: interest, color: R.colors.green, textColor: R.colors.white)
                                     )
                                     .toList(),
                               ),
