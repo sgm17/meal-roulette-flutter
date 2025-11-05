@@ -49,7 +49,7 @@ class _AvatarHeaderState extends State<AvatarHeader> with SingleTickerProviderSt
       children: [
         // Gradient banner - provides brand color & soft rounded corners
         Container(
-          height: 70.h,
+          height: 60.h,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(topLeft: Radius.circular(12.h), topRight: Radius.circular(12.h)),
             gradient: LinearGradient(begin: Alignment.centerLeft, end: Alignment.centerRight, colors: [R.colors.splashGrad1, R.colors.splashGrad3]),

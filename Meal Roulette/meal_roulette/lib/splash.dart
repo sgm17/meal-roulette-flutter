@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:meal_roulette/routes/app_routes.dart';
 import 'package:meal_roulette/routes/app_routes_constants.dart';
@@ -38,7 +37,7 @@ class _SplashViewState extends State<SplashView> {
           end: Alignment.bottomCenter,
         ),
       ),
-      child: Padding(
+      /*child: Padding(
         padding: const EdgeInsets.all(50.0),
         child: Center(
             child: SvgPicture.asset(
@@ -46,7 +45,7 @@ class _SplashViewState extends State<SplashView> {
               height: MediaQuery.sizeOf(context).height,
               width: MediaQuery.sizeOf(context).width,
             )),
-      ),
+      ),*/
     );
   }
 }

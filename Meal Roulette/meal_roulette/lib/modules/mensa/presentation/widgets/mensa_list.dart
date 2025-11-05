@@ -13,6 +13,7 @@ class MensaList extends StatelessWidget {
   Widget build(BuildContext context) {
     // Responsive column count
     final crossAxisCount = MediaQuery.of(context).size.width < 600 ? 2 : 4;
+    //final crossAxisCount = MediaQuery.of(context).size.width < 600 ? 2 : 4;
 
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -22,9 +23,9 @@ class MensaList extends StatelessWidget {
           itemCount: mensaModels.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: crossAxisCount,
-            mainAxisExtent: 350.h,
-            crossAxisSpacing: 12.w,
-            mainAxisSpacing: 12.w,
+            crossAxisSpacing: 8.w,
+            mainAxisSpacing: 8.w,
+            childAspectRatio: 0.6, // Try between 0.6–0.8
           ),
           itemBuilder: (context, index) {
             final mensa = mensaModels[index];
@@ -43,7 +44,7 @@ class MensaList extends StatelessWidget {
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
                 curve: Curves.easeInOut,
-                child: MensaCard(mensaModel: mensa),
+                child: MensaCard(mensaModel: mensa, index: index),
               ),
             );
           },

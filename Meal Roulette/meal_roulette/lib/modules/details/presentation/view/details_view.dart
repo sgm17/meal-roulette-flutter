@@ -47,7 +47,7 @@ class _DetailsViewState extends State<DetailsView> {
               ),
               backgroundColor: R.colors.white,
               surfaceTintColor: R.colors.red,
-              expandedHeight: 300.h,
+              expandedHeight: 330.h,
               toolbarHeight: 56.h,
               flexibleSpace: FlexibleSpaceBar(
                 background: Padding(
@@ -57,7 +57,7 @@ class _DetailsViewState extends State<DetailsView> {
                     children: [
                       // Back button row (keeps toolbar height consistent)
                       Padding(
-                        padding: EdgeInsets.fromLTRB(30.w, 4.h, 30.h, 12.h),
+                        padding: EdgeInsets.fromLTRB(30.w, 3.h, 30.h, 12.h),
                         child: Text("Back to Canteens", style: R.textStyles.font10M.copyWith(color: R.colors.textBlack)),
                       ),
                       SizedBox(height: 6.h),
@@ -70,7 +70,7 @@ class _DetailsViewState extends State<DetailsView> {
             ),
 
             SliverPadding(
-              padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: 18.h),
+              padding: EdgeInsets.fromLTRB(horizontalPadding, 0, horizontalPadding,  18.h),
               sliver: SliverList(
                 delegate: SliverChildListDelegate([
                   // Title row with rating
@@ -163,7 +163,6 @@ class _DetailsViewState extends State<DetailsView> {
                       }
                     },
                   ),
-
                   SizedBox(height: 18.h),
 
                   // Popular dishes section
@@ -191,7 +190,6 @@ class _DetailsViewState extends State<DetailsView> {
                       ],
                     ),
                   ),
-
                   SizedBox(height: 16.h),
 
                   // Cuisine types
@@ -213,7 +211,6 @@ class _DetailsViewState extends State<DetailsView> {
                       ],
                     ),
                   ),
-
                   SizedBox(height: 16.h),
 
                   // Amenities & features (bullet row)
@@ -235,26 +232,34 @@ class _DetailsViewState extends State<DetailsView> {
                       ],
                     ),
                   ),
-
                   SizedBox(height: 24.h),
                   // CTA area
-                  FilledButton.icon(
+                  FilledButton(
                     onPressed: () {
                       context.goNamed(AppRouteConstants.matches);
                     },
-                    icon: Icon(Icons.local_dining_outlined, color: R.colors.white,),
-                    label: Text('Find Lunch Buddy', style: R.textStyles.font11M.copyWith(color: R.colors.white), maxLines: 1, softWrap: true, overflow: TextOverflow.ellipsis,),
                     style: FilledButton.styleFrom(
-                      minimumSize: Size.fromHeight(40.h),
+                      minimumSize: Size.fromHeight(38.h),
                       backgroundColor: R.colors.primaryColor,
                       foregroundColor: R.colors.white,
+                      padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 8.h), // ← internal padding
                       elevation: 2,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12), // <-- Reduced corner radius
+                        borderRadius: BorderRadius.circular(8), // <-- Reduced corner radius
                       ),
                     ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min, // Keeps button size compact
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.local_dining_outlined, color: R.colors.white, size: 16.sp,),
+                        SizedBox(width: 4.w), // ← adjust this to control spacing (default ~8)
+                        Flexible(
+                          child: Text('Find Lunch Buddy', style: R.textStyles.font11M.copyWith(color: R.colors.white), maxLines: 1, softWrap: true, overflow: TextOverflow.ellipsis,),
+                        ),
+                      ],
+                    ),
                   ),
-
                   const SizedBox(height: 36),
                 ]),
               ),

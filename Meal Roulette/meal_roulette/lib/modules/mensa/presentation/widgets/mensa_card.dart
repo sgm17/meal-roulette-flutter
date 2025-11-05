@@ -8,7 +8,8 @@ import 'package:meal_roulette/routes/app_routes_constants.dart';
 
 class MensaCard extends StatelessWidget {
   final MensaModel mensaModel;
-  const MensaCard({super.key, required this.mensaModel});
+  final int index;
+  const MensaCard({super.key, required this.mensaModel, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +27,9 @@ class MensaCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Hero(
-              tag: mensaModel.name,
+              tag: '${mensaModel.name}_$index',
               child: CachedNetworkImage(
-                height: 135.h,
+                height: 120.h,
                 width: double.infinity,
                 imageUrl: mensaModel.imageUrl,
                 fit: BoxFit.cover,
@@ -37,15 +38,14 @@ class MensaCard extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 8.w),
+              padding: EdgeInsets.fromLTRB(8.w, 16.h, 8.w, 8.h),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(mensaModel.name, style: R.textStyles.font14B, maxLines: 2, overflow: TextOverflow.ellipsis,),
-                  SizedBox(height: 2.h),
                   Text(mensaModel.tags, style: R.textStyles.font10R.copyWith(color: R.colors.textGrey), maxLines: 1, softWrap: true,
                     overflow: TextOverflow.ellipsis,),
-                  SizedBox(height: 16.h),
+                  SizedBox(height: 12.h),
                   Row(
                     children: [
                       Icon(Icons.location_on_outlined, size: 14.sp, color: R.colors.textGrey,),
@@ -70,17 +70,26 @@ class MensaCard extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 8.h),
-                  FilledButton.icon(
+                  FilledButton(
                     onPressed: () {
                       context.goNamed(AppRouteConstants.matches);
                     },
-                    icon: Icon(Icons.local_dining_outlined, color: R.colors.white,),
-                    label: Text('Find Lunch Buddy', style: R.textStyles.font11M.copyWith(color: R.colors.white), maxLines: 1, softWrap: true, overflow: TextOverflow.ellipsis,),
                     style: FilledButton.styleFrom(
-                      minimumSize: Size.fromHeight(40.h),
+                      minimumSize: Size.fromHeight(38.h),
                       backgroundColor: R.colors.primaryColor,
                       foregroundColor: R.colors.white,
-
+                      padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 8.h), // ← internal padding
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min, // Keeps button size compact
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.local_dining_outlined, color: R.colors.white, size: 16.sp,),
+                        SizedBox(width: 4.w), // ← adjust this to control spacing (default ~8)
+                        Flexible(
+                          child: Text('Find Lunch Buddy', style: R.textStyles.font11M.copyWith(color: R.colors.white), maxLines: 1, softWrap: true, overflow: TextOverflow.ellipsis,),
+                        ),
+                      ],
                     ),
                   ),
                 ],
