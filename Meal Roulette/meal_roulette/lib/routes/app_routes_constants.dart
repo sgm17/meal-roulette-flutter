@@ -4,6 +4,7 @@ class AppRouteConstants {
 
   static String home = "/home";
 
+  static String auth = "/auth";
   static String profile = "/profile";
   static String matches = "/matches";
   static String details = "/details";
