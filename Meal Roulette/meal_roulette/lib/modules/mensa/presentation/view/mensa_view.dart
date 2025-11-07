@@ -23,79 +23,7 @@ class _MensaViewState extends State<MensaView> {
       Provider.of<MensaProvider>(context, listen: false).fetchMensas();
       _isInit = false;
     }
-    final mensas = provider.mensas;
-
-   /* final mensas = [
-      MensaModel(
-        name: 'Untere Mensa',
-        tags: 'Garden • Pure Asia • No butcher',
-        location: 'UZH Zentrum',
-        time: '12:00 AM - 3:00 PM',
-        capacity: 200,
-        imageUrl:
-            'https://images.unsplash.com/photo-1504674900247-0877df9cc836',
-      ),
-      MensaModel(
-        name: 'Obere Mensa',
-        tags: 'Farm • Voll Anders • No butcher',
-        location: 'UZH Zentrum',
-        time: '12:00 PM - 2:30 PM',
-        capacity: 150,
-        imageUrl: 'https://images.unsplash.com/photo-1555992336-03a23c7b20ec',
-      ),
-      MensaModel(
-        name: 'Mensa UZH Irchel',
-        tags: 'Garden • Farm • Butcher',
-        location: 'Irchel',
-        time: '12:00 AM - 2:00 PM',
-        capacity: 100,
-        imageUrl:
-            'https://images.unsplash.com/photo-1520201163981-8cc95007dd2a',
-      ),
-      MensaModel(
-        name: 'Green Kitchen Lab',
-        tags: 'One • Two',
-        location: 'Irchel',
-        time: '12:00 PM - 3:00 PM',
-        capacity: 120,
-        imageUrl:
-            'https://images.unsplash.com/photo-1504674900247-0877df9cc836',
-      ),
-      MensaModel(
-        name: 'Untere Mensa',
-        tags: 'Garden • Pure Asia • No butcher',
-        location: 'UZH Zentrum',
-        time: '12:00 AM - 3:00 PM',
-        capacity: 200,
-        imageUrl:
-        'https://images.unsplash.com/photo-1504674900247-0877df9cc836',
-      ),
-      MensaModel(
-        name: 'Obere Mensa',
-        tags: 'Farm • Voll Anders • No butcher',
-        location: 'UZH Zentrum',
-        time: '12:00 PM - 2:30 PM',
-        capacity: 150,
-        imageUrl: 'https://images.unsplash.com/photo-1555992336-03a23c7b20ec',
-      ),
-      MensaModel(
-        name: 'Untere Mensa',
-        tags: 'Garden • Pure Asia • No butcher',
-        location: 'UZH Zentrum',
-        time: '12:00 AM - 3:00 PM',
-        capacity: 200,
-        imageUrl:
-        'https://images.unsplash.com/photo-1504674900247-0877df9cc836',
-      ),
-      MensaModel(
-        name: 'Obere Mensa',
-        tags: 'Farm • Voll Anders • No butcher',
-        location: 'UZH Zentrum',
-        time: '12:00 PM - 2:30 PM',
-        capacity: 150,
-        imageUrl: 'https://images.unsplash.com/photo-1555992336-03a23c7b20ec',
-      ),
-    ];*/
+    final mensa = provider.mensas;
 
     return Scaffold(
       backgroundColor: R.colors.white,
@@ -127,7 +55,7 @@ class _MensaViewState extends State<MensaView> {
       ),
       body: provider.isLoading
           ? const Center(child: CircularProgressIndicator())
-          : MensaList(mensaModels: mensas),
+          : MensaList(mensaModels: mensa),
     );
   }
 }
