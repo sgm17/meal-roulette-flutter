@@ -42,7 +42,7 @@ class MensaCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(mensaModel.name, style: R.textStyles.font14B, maxLines: 2, overflow: TextOverflow.ellipsis,),
+                  Text(mensaModel.name, style: R.textStyles.font14B, maxLines: 1, overflow: TextOverflow.ellipsis,),
                   Text(mensaModel.tags, style: R.textStyles.font10R.copyWith(color: R.colors.textGrey), maxLines: 1, softWrap: true,
                     overflow: TextOverflow.ellipsis,),
                   SizedBox(height: 12.h),

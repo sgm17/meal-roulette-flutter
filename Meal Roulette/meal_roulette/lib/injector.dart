@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meal_roulette/modules/auth/data/data_sources/auth_service.dart';
 import 'package:meal_roulette/modules/auth/data/repository/auth_data_repository.dart';
+import 'package:meal_roulette/modules/mensa/presentation/provider/mensa_provider.dart';
 import 'package:provider/provider.dart';
 import 'modules/auth/presentation/provider/auth_provider.dart';
 
@@ -17,6 +18,7 @@ class Injector extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(providers: [
       ChangeNotifierProvider(create: (_) => AuthProvider(repository: authRepository)),
+      ChangeNotifierProvider(create: (_) => MensaProvider()),
 
     ], child: myApp);
   }
