@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:meal_roulette/configs/utils/aap_utils.dart';
+import 'package:meal_roulette/modules/auth/presentation/view/auth_screen.dart';
 import 'package:meal_roulette/modules/details/presentation/view/details_view.dart';
 import 'package:meal_roulette/modules/matching/presentation/view/matching_view.dart';
 import 'package:meal_roulette/modules/mensa/presentation/view/mensa_view.dart';
@@ -31,6 +32,12 @@ class AppRoutes {
       GoRoute(
         path: AppRouteConstants.defaultRoute,
         pageBuilder: (context, state) => NoTransitionPage(child: SplashView()),
+      ),
+      GoRoute(
+        path: AppRouteConstants.auth,
+        name: AppRouteConstants.auth,
+          //pageBuilder: (context, state) => Utils().buildPageWithSlideTransition(context: context, state: state, child: AuthView()), routes: [],
+          pageBuilder: (context, state) => Utils().buildPageWithSlideTransition(context: context, state: state, child: AuthView()), routes: [],
       ),
       GoRoute(path: AppRouteConstants.home, name: AppRouteConstants.home, pageBuilder: (context, state) => Utils().buildPageWithSlideTransition(context: context, state: state, child: MensaView()), routes: [
         GoRoute(path: AppRouteConstants.matches, name: AppRouteConstants.matches, pageBuilder: (context, state) => Utils().buildPageWithRightToLeftTransition(context: context, state: state,child: MatchingView()), routes: [

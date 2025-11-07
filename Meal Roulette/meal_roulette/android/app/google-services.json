@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1055050346137",
+    "project_id": "mealroulette-e3f4d",
+    "storage_bucket": "mealroulette-e3f4d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1055050346137:android:804b3577c7d15304599208",
+        "android_client_info": {
+          "package_name": "com.sgm17.mealroulette.meal_roulette"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIYsqfQPPWXXhJDuJLMkAUhmKwThwYogY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
