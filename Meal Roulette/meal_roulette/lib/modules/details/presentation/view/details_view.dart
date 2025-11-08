@@ -8,12 +8,14 @@ import 'package:meal_roulette/modules/details/presentation/widgets/feature_row.d
 import 'package:meal_roulette/modules/details/presentation/widgets/header_image.dart';
 import 'package:meal_roulette/modules/details/presentation/widgets/info_card.dart';
 import 'package:meal_roulette/configs/common_widgets/tag_chip.dart';
+import 'package:meal_roulette/modules/mensa/data/models/mensa_models.dart';
 import 'package:meal_roulette/routes/app_routes_constants.dart';
 
 /// Canteen detail screen: Sliver-based, responsive, adaptive, and animated.
 /// Single-screen, ready to be wired into your app.
 class DetailsView extends StatefulWidget {
-  const DetailsView({super.key});
+  final MensaModel mensa;
+  const DetailsView({super.key, required this.mensa});
 
   @override
   State<DetailsView> createState() => _DetailsViewState();
@@ -62,7 +64,7 @@ class _DetailsViewState extends State<DetailsView> {
                       ),
                       SizedBox(height: 6.h),
                       // Hero image
-                      HeaderImage(imageUrl: canteen.heroImageUrl, heroTag: 'canteen-${canteen.id}'),
+                      HeaderImage(imageUrl: widget.mensa.imageUrl, heroTag: 'canteen-${canteen.id}'),
                     ],
                   ),
                 ),
@@ -79,7 +81,7 @@ class _DetailsViewState extends State<DetailsView> {
                     children: [
                       Expanded(
                         child: GradientText(
-                          canteen.title,
+                          widget.mensa.name,
                           style: R.textStyles.font18B,
                           gradient: LinearGradient(colors: [R.colors.splashGrad1, R.colors.splashGrad2]),
                         ),
@@ -99,7 +101,7 @@ class _DetailsViewState extends State<DetailsView> {
                       Icon(Icons.location_on_outlined, size: 16.sp, color: R.colors.textGrey),
                       SizedBox(width: 4.w),
                       Expanded(
-                        child: Text(canteen.locationLine, style: R.textStyles.font11R.copyWith(color: R.colors.textGrey)),
+                        child: Text(widget.mensa.location, style: R.textStyles.font11R.copyWith(color: R.colors.textGrey)),
                       ),
                     ],
                   ),
@@ -144,20 +146,20 @@ class _DetailsViewState extends State<DetailsView> {
                         return Row(
                           children: [
                             Expanded(
-                              child: InfoCard(title: 'Operating Hours', subtitle: canteen.hours, peakHours: canteen.peakHours, icon: Icons.schedule),
+                              child: InfoCard(title: 'Operating Hours', subtitle: widget.mensa.time, peakHours: canteen.peakHours, icon: Icons.schedule),
                             ),
                             SizedBox(width: 8.w),
                             Expanded(
-                              child: InfoCard(title: 'Capacity & Pricing', peakHours: canteen.priceRange, subtitle: canteen.capacity, icon: Icons.people_outline),
+                              child: InfoCard(title: 'Capacity & Pricing', subtitle: widget.mensa.capacity.toString(), peakHours: canteen.priceRange, icon: Icons.people_outline),
                             ),
                           ],
                         );
                       }else {
                         return Column(
                           children: [
-                            InfoCard(title: 'Operating Hours', subtitle: canteen.hours, peakHours: canteen.peakHours, icon: Icons.schedule),
+                            InfoCard(title: 'Operating Hours', subtitle: widget.mensa.time, peakHours: canteen.peakHours, icon: Icons.schedule),
                             SizedBox(height: 12.h),
-                            InfoCard(title: 'Capacity & Pricing', subtitle: canteen.capacity, peakHours: canteen.priceRange, icon: Icons.people_outline),
+                            InfoCard(title: 'Capacity & Pricing', subtitle: widget.mensa.capacity.toString(), peakHours: canteen.priceRange, icon: Icons.people_outline),
                           ],
                         );
                       }
