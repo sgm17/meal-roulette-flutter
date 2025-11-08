@@ -4,6 +4,7 @@ import 'package:meal_roulette/configs/utils/aap_utils.dart';
 import 'package:meal_roulette/modules/auth/presentation/view/auth_screen.dart';
 import 'package:meal_roulette/modules/details/presentation/view/details_view.dart';
 import 'package:meal_roulette/modules/matching/presentation/view/matching_view.dart';
+import 'package:meal_roulette/modules/mensa/data/models/mensa_models.dart';
 import 'package:meal_roulette/modules/mensa/presentation/view/mensa_view.dart';
 import 'package:meal_roulette/modules/profile/presentation/view/profile_view.dart';
 import 'package:meal_roulette/splash.dart';
@@ -48,7 +49,7 @@ class AppRoutes {
             routes: [],
           ),
          ]),
-        GoRoute(path: AppRouteConstants.details, name: AppRouteConstants.details, pageBuilder: (context, state) => Utils().buildPageWithRightToLeftTransition(context: context, state: state,child: DetailsView()), routes: []),
+        GoRoute(path: AppRouteConstants.details, name: AppRouteConstants.details, pageBuilder: (context, state) => Utils().buildPageWithRightToLeftTransition(context: context, state: state,child: DetailsView(mensa: state.extra as MensaModel)), routes: []),
         // GoRoute(path: AppRouteConstants.notifications, name: AppRouteConstants.notifications, pageBuilder: (context, state) => NoTransitionPage(child: NotificationsView()), routes: []),
         // GoRoute(path: AppRouteConstants.settings, name: AppRouteConstants.settings, pageBuilder: (context, state) => NoTransitionPage(child: SettingsView()), routes: []),
         // GoRoute(path: AppRouteConstants.contact, name: AppRouteConstants.contact, pageBuilder: (context, state) => NoTransitionPage(child: ContactView()), routes: []),

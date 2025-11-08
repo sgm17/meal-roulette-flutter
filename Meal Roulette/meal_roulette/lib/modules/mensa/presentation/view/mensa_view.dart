@@ -20,7 +20,7 @@ class _MensaViewState extends State<MensaView> {
   Widget build(BuildContext context) {
     final provider = Provider.of<MensaProvider>(context);
     if (_isInit) {
-      Provider.of<MensaProvider>(context, listen: false).fetchMensas();
+      provider.fetchMensas();
       _isInit = false;
     }
     final mensa = provider.mensas;

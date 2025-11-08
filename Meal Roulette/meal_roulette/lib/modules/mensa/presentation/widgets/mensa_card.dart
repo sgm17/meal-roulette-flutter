@@ -21,7 +21,7 @@ class MensaCard extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: () {
-          context.goNamed(AppRouteConstants.details);
+          context.goNamed(AppRouteConstants.details, extra: mensaModel);
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
