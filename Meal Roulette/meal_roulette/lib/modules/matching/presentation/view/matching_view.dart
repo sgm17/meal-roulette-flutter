@@ -50,12 +50,7 @@ class _MatchingViewState extends State<MatchingView> {
       appBar: AppBar(
         centerTitle: true,
         toolbarHeight: 70.h,
-        automaticallyImplyLeading: true,
-        leadingWidth: 30.w,
-        leading: IconButton(
-          onPressed: () => Navigator.of(context).maybePop(),
-          icon: Icon(Icons.arrow_back_rounded, color: R.colors.textBlack, size: 20.sp),
-        ),
+        automaticallyImplyLeading: false,
         title: Column(
           children: [
             GradientText(

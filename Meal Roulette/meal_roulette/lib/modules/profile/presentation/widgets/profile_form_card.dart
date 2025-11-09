@@ -1,16 +1,23 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:meal_roulette/configs/resources/resources.dart';
 import 'package:meal_roulette/configs/resources/sizing.dart';
+import 'package:meal_roulette/modules/auth/data/models/user_model.dart';
+import 'package:meal_roulette/modules/profile/presentation/provider/profile_provider.dart';
 import 'package:meal_roulette/modules/profile/presentation/widgets/profile_form_textfield.dart';
+import 'package:meal_roulette/routes/app_routes.dart';
+import 'package:meal_roulette/routes/app_routes_constants.dart';
 
 /// Profile form card that toggles between read-only view and editable fields.
 /// Uses AnimatedSize and AnimatedOpacity to animate layout changes smoothly.
 class ProfileFormCard extends StatefulWidget {
   final bool editing;
-  final Future<void> Function() onSave;
+  final UserModel user;
   final bool isSaving;
+  final ProfileProvider provider;
 
-  const ProfileFormCard({super.key, required this.editing, required this.onSave, required this.isSaving});
+  const ProfileFormCard({super.key, required this.editing, required this.isSaving, required this.user, required this.provider});
 
   @override
   State<ProfileFormCard> createState() => _ProfileFormCardState();
@@ -27,9 +34,9 @@ class _ProfileFormCardState extends State<ProfileFormCard> with TickerProviderSt
   @override
   void initState() {
     super.initState();
-    _nameController = TextEditingController(text: 'Demo User');
-    _emailController = TextEditingController(text: '');
-    _phoneController = TextEditingController(text: '');
+    _nameController = TextEditingController(text: widget.user.name);
+    _emailController = TextEditingController(text: widget.user.email);
+    _phoneController = TextEditingController(text: widget.user.phone);
   }
 
   @override
@@ -39,14 +46,6 @@ class _ProfileFormCardState extends State<ProfileFormCard> with TickerProviderSt
     _phoneController.dispose();
     super.dispose();
   }
-
- /* void _onSaveTap() {
-    if (widget.editing) {
-      if (_formKey.currentState?.validate() ?? false) {
-        widget.onSave();
-      }
-    }
-  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -91,9 +90,9 @@ class _ProfileFormCardState extends State<ProfileFormCard> with TickerProviderSt
                     if (showAsRow) {
                       return Column(
                         children: [
-                          ProfileTextField(title: 'Full Name', hint: '', controller: _nameController, icon: Icons.person_outlined, validator: (v) => v == null || v.isEmpty ? 'Enter name' : null),
+                          ProfileTextField(title: 'Full Name', hint: '', text: widget.user.name, controller: _nameController, icon: Icons.person_outlined, validator: (v) => v == null || v.isEmpty ? 'Enter name' : null),
                           SizedBox(height: 16.h),
-                          ProfileTextField(title: 'Email', hint: 'demo@university.edu', controller: _emailController, icon: Icons.email_outlined, validator: (v) => v == null || !v.contains('@') ? 'Enter valid email' : null),
+                          ProfileTextField(title: 'Email', hint: 'demo@university.edu', text: widget.user.email, controller: _emailController, icon: Icons.email_outlined, validator: (v) => v == null || !v.contains('@') ? 'Enter valid email' : null),
                         ],
                       );
                     } else {
@@ -101,11 +100,11 @@ class _ProfileFormCardState extends State<ProfileFormCard> with TickerProviderSt
                       return Row(
                         children: [
                           Expanded(
-                            child: ProfileTextField(title: 'Full Name', hint: '', controller: _nameController, icon: Icons.person_outlined, validator: (v) => v == null || v.isEmpty ? 'Enter name' : null),
+                            child: ProfileTextField(title: 'Full Name', hint: '', text: widget.user.name, controller: _nameController, icon: Icons.person_outlined, validator: (v) => v == null || v.isEmpty ? 'Enter name' : null),
                           ),
                           SizedBox(width: 12.w),
                           Expanded(
-                            child: ProfileTextField(title: 'Email', hint: 'demo@university.edu', controller: _emailController, icon: Icons.email_outlined, validator: (v) => v == null || !v.contains('@') ? 'Enter valid email' : null),
+                            child: ProfileTextField(title: 'Email', hint: 'demo@university.edu', text: widget.user.email, controller: _emailController, icon: Icons.email_outlined, validator: (v) => v == null || !v.contains('@') ? 'Enter valid email' : null),
                           ),
                         ],
                       );
@@ -114,7 +113,7 @@ class _ProfileFormCardState extends State<ProfileFormCard> with TickerProviderSt
                 ),
 
                 SizedBox(height: 16.h),
-                ProfileTextField(title: 'Phone Number', hint: '+41 XX XXX XX XX', controller: _phoneController, icon: Icons.phone_outlined, validator: (v) => null),
+                ProfileTextField(title: 'Phone Number', hint: '+41 XX XXX XX XX', text: widget.user.phone, controller: _phoneController, icon: Icons.phone_outlined, validator: (v) => null),
 
                 SizedBox(height: 16.h),
                 Divider(height: 1.h, thickness: 1.h, color: R.colors.veryLightGrey),
@@ -126,7 +125,14 @@ class _ProfileFormCardState extends State<ProfileFormCard> with TickerProviderSt
                     Expanded(
                       child: FilledButton.icon(
                         onPressed: () {
-                          Navigator.of(context).maybePop();
+                          //if (widget.editing) {
+                            if (_formKey.currentState?.validate() ?? false) {
+                              UserModel newUser = UserModel(uid: widget.user.uid, name: _nameController.text, phone: _phoneController.text, email: _emailController.text, fcmToken: widget.user.fcmToken);
+
+                              widget.provider.updateProfile(newUser);
+                            }
+                         // }
+                          //Navigator.of(context).maybePop();
                         },
                         icon: Icon(Icons.local_dining_outlined, color: R.colors.transparent),
                         label: Text(
@@ -148,16 +154,19 @@ class _ProfileFormCardState extends State<ProfileFormCard> with TickerProviderSt
                     ),
                     SizedBox(width: 12.w),
                     OutlinedButton.icon(
-                      onPressed: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Logout (demo)')),
-                        );
+                      onPressed: () async {
+                        await FirebaseAuth.instance.signOut();
+                        ScaffoldMessenger.of(getContext()).showSnackBar(const SnackBar(content: Text('Logout Complete')));
+                        // Clear providers / local state if needed
+
+                        if (getContext().mounted) {
+                          // Delay navigation slightly to let old widgets unmount
+                          await Future.delayed(const Duration(milliseconds: 200));
+                          getContext().go(AppRouteConstants.auth);
+                        }
                       },
                       icon: Icon(Icons.logout, color: R.colors.textBlack),
-                      label: Text(
-                        'Logout',
-                        style: R.textStyles.font11M.copyWith(color: R.colors.textBlack),
-                      ),
+                      label: Text('Logout', style: R.textStyles.font11M.copyWith(color: R.colors.textBlack)),
                       style: FilledButton.styleFrom(
                         backgroundColor: R.colors.veryLightGrey,
                         disabledBackgroundColor: R.colors.textGrey,
@@ -169,7 +178,6 @@ class _ProfileFormCardState extends State<ProfileFormCard> with TickerProviderSt
                           width: 0.5, // optional: adjust thickness
                         ),
                       ),
-
                     ),
                   ],
                 ),

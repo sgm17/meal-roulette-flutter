@@ -5,6 +5,9 @@ import 'package:meal_roulette/configs/resources/resources.dart';
 import 'package:meal_roulette/configs/resources/sizing.dart';
 import 'package:meal_roulette/modules/mensa/data/models/mensa_models.dart';
 import 'package:meal_roulette/routes/app_routes_constants.dart';
+import 'package:provider/provider.dart';
+
+import '../provider/mensa_provider.dart';
 
 class MensaCard extends StatelessWidget {
   final MensaModel mensaModel;
@@ -13,6 +16,7 @@ class MensaCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = context.watch<MensaProvider>();
     return Card(
       color: R.colors.white,
       elevation: 1,
@@ -71,8 +75,12 @@ class MensaCard extends StatelessWidget {
                   ),
                   SizedBox(height: 8.h),
                   FilledButton(
-                    onPressed: () {
-                      context.goNamed(AppRouteConstants.matches);
+                    onPressed: () async {
+                      await provider.findBuddy(mensaModel.id);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Searching for a match...')),
+                      );
+                      //context.goNamed(AppRouteConstants.matches);
                     },
                     style: FilledButton.styleFrom(
                       minimumSize: Size.fromHeight(38.h),
