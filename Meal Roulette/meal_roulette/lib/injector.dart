@@ -4,6 +4,8 @@ import 'package:meal_roulette/modules/auth/data/repository/auth_data_repository.
 import 'package:meal_roulette/modules/mensa/presentation/provider/mensa_provider.dart';
 import 'package:provider/provider.dart';
 import 'modules/auth/presentation/provider/auth_provider.dart';
+import 'modules/mensa/data/data_sources/mensa_service.dart';
+import 'modules/mensa/data/repository/mensa_repository.dart';
 
 class Injector extends StatelessWidget {
   final Widget myApp;
@@ -18,7 +20,7 @@ class Injector extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(providers: [
       ChangeNotifierProvider(create: (_) => AuthProvider(repository: authRepository)),
-      ChangeNotifierProvider(create: (_) => MensaProvider()),
+      ChangeNotifierProvider(create: (_) => MensaProvider(MensaRepository(MensaService()))),
 
     ], child: myApp);
   }

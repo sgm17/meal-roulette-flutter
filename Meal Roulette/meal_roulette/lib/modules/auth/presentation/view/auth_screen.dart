@@ -201,7 +201,7 @@ class _AuthViewState extends State<AuthView> with SingleTickerProviderStateMixin
                                 validator: (v) {
                                   if (v == null || v.trim().isEmpty) return 'Email required';
                                   if (!v.contains('@')) return 'Enter a valid email';
-                        //          if (!v.contains('@uzh.ch')) return 'Only university Email is allowed';
+                                  if (!v.contains('@uzh.ch')) return 'Only university Email is allowed';
                                   return null;
                                 },
                               ),
