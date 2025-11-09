@@ -6,12 +6,14 @@ class UserModel {
   final String phone;
   final String email;
   final String? avatarUrl;
+  final String? fcmToken;
 
   const UserModel({
     required this.uid,
     required this.name,
     required this.phone,
     required this.email,
+    required this.fcmToken,
     this.avatarUrl,
   });
 
@@ -21,6 +23,7 @@ class UserModel {
       'name': name,
       'email': email,
       'phone': phone,
+      'fcmToken': fcmToken,
       'avatarUrl': avatarUrl,
       'updatedAt': DateTime.now().toUtc(),
     };
@@ -32,6 +35,7 @@ class UserModel {
       name: map['name'] as String,
       phone: map['phone'] as String,
       email: map['email'] as String,
+      fcmToken: map['fcmToken'] as String?,
       avatarUrl: map['avatarUrl'] as String?,
     );
   }

@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 import 'modules/auth/presentation/provider/auth_provider.dart';
 import 'modules/mensa/data/data_sources/mensa_service.dart';
 import 'modules/mensa/data/repository/mensa_repository.dart';
+import 'modules/profile/data/data_sources/profile_service.dart';
+import 'modules/profile/presentation/provider/profile_provider.dart';
 
 class Injector extends StatelessWidget {
   final Widget myApp;
@@ -21,7 +23,7 @@ class Injector extends StatelessWidget {
     return MultiProvider(providers: [
       ChangeNotifierProvider(create: (_) => AuthProvider(repository: authRepository)),
       ChangeNotifierProvider(create: (_) => MensaProvider(MensaRepository(MensaService()))),
-
+      ChangeNotifierProvider(create: (_) => ProfileProvider(service: ProfileService())),
     ], child: myApp);
   }
 }

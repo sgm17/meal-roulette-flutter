@@ -37,7 +37,7 @@ class AuthService {
 
       // Firebase Auth doesn’t directly allow setting phone without verification.
       // So we store phone in Firestore as part of the profile instead.
-      final profile = UserModel(uid: user.uid, name: name, phone: phone, email: email, avatarUrl: avatarUrl);
+      final profile = UserModel(uid: user.uid, name: name, phone: phone, fcmToken: "", email: email, avatarUrl: avatarUrl);
 
       // Step 3: Create Firestore user profile
       try {
@@ -97,7 +97,7 @@ class AuthService {
         return UserModel.fromMap(doc.data()!);
       } else {
         // If profile missing, synthesize a minimal one from auth info
-        final profile = UserModel(uid: user.uid, name: user.displayName ?? '', phone: '', email: user.email ?? email, avatarUrl: user.photoURL);
+        final profile = UserModel(uid: user.uid, name: user.displayName ?? '', phone: '', fcmToken: "", email: user.email ?? email, avatarUrl: user.photoURL);
         // Persist it for future use
         await _firestore.collection(usersCollection).doc(user.uid).set(profile.toMap());
         return profile;

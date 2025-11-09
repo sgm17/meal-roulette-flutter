@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:meal_roulette/configs/resources/resources.dart';
+import 'package:meal_roulette/configs/resources/sizing.dart';
 import 'package:meal_roulette/routes/app_routes_constants.dart';
 
 class AppNavBar extends StatefulWidget {
@@ -57,7 +58,7 @@ class _AppNavBarState extends State<AppNavBar> {
           ),
         ),
         child: NavigationBar(
-          height: 70,
+          height: 70.h,
           elevation: 5,
           indicatorColor: R.colors.red,
           selectedIndex: currentIndex,

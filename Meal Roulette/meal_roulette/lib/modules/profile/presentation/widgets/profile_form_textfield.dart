@@ -7,11 +7,12 @@ import 'package:meal_roulette/configs/resources/sizing.dart';
 class ProfileTextField extends StatefulWidget {
   final String title;
   final String hint;
+  final String text;
   final IconData icon;
   final TextEditingController controller;
   final FormFieldValidator validator;
 
-  const ProfileTextField({super.key, required this.title,  required this.controller, required this.icon, required this.validator, required this.hint});
+  const ProfileTextField({super.key, required this.title,  required this.controller, required this.icon, required this.validator, required this.hint, required this.text});
 
   @override
   State<ProfileTextField> createState() => _ProfileTextFieldState();
