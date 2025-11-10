@@ -68,17 +68,20 @@ class _AuthViewState extends State<AuthView> with SingleTickerProviderStateMixin
       // On success, you likely navigate to your app's home — we pop for demo.
       if (user != null) {
         if(_isLogin){
-          rootNavigatorKey.currentContext!.go(AppRouteConstants.home);
+          if (context.mounted) {
+            getContext().goNamed(AppRouteConstants.home);
+            return;
+          }
         }else{
-          ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(content: Text("Verify your email first and login again.")));
+          ScaffoldMessenger.of(getContext()).showSnackBar(SnackBar(content: Text("Verify your email first and login again.")));
         }
       }else{
-        ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(content: Text("No Data found for this user")));
+        ScaffoldMessenger.of(getContext()).showSnackBar(SnackBar(content: Text("No Data found for this user")));
       }
     } catch (e) {
       // error already set in provider; you can show a snackbar too
       final msg = provider.error ?? 'Auth failed';
-      ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(content: Text(msg)));
+      ScaffoldMessenger.of(getContext()).showSnackBar(SnackBar(content: Text(msg)));
     }
 
     setState(() => _loading = false);

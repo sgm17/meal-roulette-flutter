@@ -4,6 +4,7 @@ import 'package:meal_roulette/configs/resources/sizing.dart';
 import 'package:meal_roulette/modules/auth/data/models/user_model.dart';
 import 'package:meal_roulette/modules/profile/presentation/provider/profile_provider.dart';
 import 'package:meal_roulette/modules/profile/presentation/widgets/profile_form_card.dart';
+import 'package:meal_roulette/routes/app_routes.dart';
 import 'package:provider/provider.dart';
 import '../widgets/avatar_header.dart';
 import '../widgets/stat_card.dart';
@@ -29,19 +30,21 @@ class _ProfileViewState extends State<ProfileView> {
 
   // control saving animation
   bool _isSaving = false;
+  final providerX = Provider.of<ProfileProvider>(getContext(), listen: false);
 
   @override
   void initState() {
     super.initState();
     // Start listening to current authenticated user's profile.
     // The provider should have been created and injected higher in the tree.
-    final provider = context.read<ProfileProvider>();
-    provider.startListening();
+
+   //final provider = context.read<ProfileProvider>();
+    providerX.startListening();
   }
 
   @override
   void dispose() {
-    context.read<ProfileProvider>().stopListening(); // optional
+    providerX.stopListening(); // optional
     super.dispose();
   }
 

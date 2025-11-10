@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:meal_roulette/configs/common_widgets/app_nav_bar.dart';
@@ -22,13 +22,14 @@ class AppRoutes {
   static final GoRouter router = GoRouter(
     navigatorKey: rootNavigatorKey,
     initialLocation: AppRouteConstants.defaultRoute,
-    redirect: (context, state) {
+   debugLogDiagnostics: true,
+   /* redirect: (context, state) {
       final loggedIn = FirebaseAuth.instance.currentUser != null;
       final loggingIn = state.matchedLocation == AppRouteConstants.auth;
       if (!loggedIn) return loggingIn ? null : AppRouteConstants.auth;
       if (loggingIn) return AppRouteConstants.home;
       return null;
-    },
+    },*/
     //errorBuilder: (context, state) => ErrorPage(state.error),
     routes: [
       GoRoute(

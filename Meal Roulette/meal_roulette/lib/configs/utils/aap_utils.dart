@@ -151,13 +151,13 @@ class Utils {
 
         if (commonResponse.status != 200 || response.data == null) {
           final errorMessage = response.data['message'] ?? R.strings.anErrorOccurredWhileFetchingData;
-          ScaffoldMessenger.of(rootNavigatorKey.currentContext!).showSnackBar(
+          ScaffoldMessenger.of(getContext()).showSnackBar(
             Utils.getSnackBar(errorMessage),
           );
         }
       } else {
         final errorMessage = response.data['message'] ?? R.strings.anErrorOccurredWhileFetchingData;
-        ScaffoldMessenger.of(rootNavigatorKey.currentContext!).showSnackBar(
+        ScaffoldMessenger.of(getContext()).showSnackBar(
           Utils.getSnackBar(errorMessage),
         );
       }
@@ -171,12 +171,12 @@ class Utils {
         } catch (error) {
           errorMessage = e.response?.statusMessage ?? R.strings.anErrorOccurredWhileFetchingData;
         }
-        ScaffoldMessenger.of(rootNavigatorKey.currentContext!).showSnackBar(
+        ScaffoldMessenger.of(getContext()).showSnackBar(
           Utils.getSnackBar(errorMessage),
         );
       } else {
         // Fallback for cases where the exception is not a DioException or no response data is available
-        ScaffoldMessenger.of(rootNavigatorKey.currentContext!).showSnackBar(
+        ScaffoldMessenger.of(getContext()).showSnackBar(
           Utils.getSnackBar(e.toString()),
         );
       }
