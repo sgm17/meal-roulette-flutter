@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:meal_roulette/configs/resources/resources.dart';
 import 'package:meal_roulette/configs/resources/sizing.dart';
 import 'package:meal_roulette/modules/mensa/data/models/mensa_models.dart';
+import 'package:meal_roulette/routes/app_routes.dart';
 import 'package:meal_roulette/routes/app_routes_constants.dart';
 import 'package:provider/provider.dart';
 
@@ -77,7 +78,7 @@ class MensaCard extends StatelessWidget {
                   FilledButton(
                     onPressed: () async {
                       await provider.findBuddy(mensaModel.id);
-                      ScaffoldMessenger.of(context).showSnackBar(
+                      ScaffoldMessenger.of(getContext()).showSnackBar(
                         const SnackBar(content: Text('Searching for a match...')),
                       );
                       //context.goNamed(AppRouteConstants.matches);

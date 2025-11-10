@@ -21,9 +21,9 @@ class _SplashViewState extends State<SplashView> {
 
     Future.delayed(const Duration(seconds: 1)).then((_) {
       if (auth.isAuthenticated) {
-        rootNavigatorKey.currentContext!.go(AppRouteConstants.home);
+        getContext().goNamed(AppRouteConstants.home);
       } else {
-        rootNavigatorKey.currentContext!.go(AppRouteConstants.auth);
+        getContext().goNamed(AppRouteConstants.auth);
       }
     });
   }

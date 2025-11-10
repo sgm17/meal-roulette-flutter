@@ -156,13 +156,13 @@ class _ProfileFormCardState extends State<ProfileFormCard> with TickerProviderSt
                     OutlinedButton.icon(
                       onPressed: () async {
                         await FirebaseAuth.instance.signOut();
-                        ScaffoldMessenger.of(getContext()).showSnackBar(const SnackBar(content: Text('Logout Complete')));
+                       // ScaffoldMessenger.of(getContext()).showSnackBar(const SnackBar(content: Text('Logout Complete')));
                         // Clear providers / local state if needed
 
                         if (getContext().mounted) {
                           // Delay navigation slightly to let old widgets unmount
                           await Future.delayed(const Duration(milliseconds: 200));
-                          getContext().go(AppRouteConstants.auth);
+                          getContext().goNamed(AppRouteConstants.auth);
                         }
                       },
                       icon: Icon(Icons.logout, color: R.colors.textBlack),
