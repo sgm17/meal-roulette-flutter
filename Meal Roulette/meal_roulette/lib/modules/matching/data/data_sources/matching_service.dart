@@ -32,7 +32,13 @@ class MatchingService {
 
       final allMatches = [...user1Matches, ...user2Matches];
       allMatches.sort((a, b) => b.timestamp.compareTo(a.timestamp));
-      return allMatches;
+
+      // Remove duplicates based on matchId
+      final uniqueMatches = {
+        for (var match in allMatches) match.id: match,
+      }.values.toList();
+
+      return uniqueMatches;
     });
   }
 
@@ -42,5 +48,26 @@ class MatchingService {
     return date.year == now.year &&
         date.month == now.month &&
         date.day == now.day;
+  }
+
+
+  /// Deletes a match document.
+  Future<void> deleteMatch(String mensaId, String matchId) async {
+    await _firestore
+        .collection('mensa_places')
+        .doc(mensaId)
+        .collection('matches')
+        .doc(matchId)
+        .delete();
+  }
+
+  /// Marks a match as completed.
+  Future<void> completeMatch(String mensaId, String matchId, String status) async {
+    await _firestore
+        .collection('mensa_places')
+        .doc(mensaId)
+        .collection('matches')
+        .doc(matchId)
+        .update({'status': status});
   }
 }

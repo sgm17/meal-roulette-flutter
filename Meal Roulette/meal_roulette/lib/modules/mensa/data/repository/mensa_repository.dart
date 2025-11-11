@@ -16,22 +16,6 @@ class MensaRepository {
     }
   }
 
-  Future<void> deleteMatch(String mensaId, String matchId) async {
-    try {
-      await _service.deleteMatch(mensaId, matchId);
-    } catch (e) {
-      throw Exception('Failed to delete match: $e');
-    }
-  }
-
-  Future<void> completeMatch(String mensaId, String matchId) async {
-    try {
-      await _service.completeMatch(mensaId, matchId);
-    } catch (e) {
-      throw Exception('Failed to complete match: $e');
-    }
-  }
-
   Stream<QuerySnapshot<Map<String, dynamic>>> getMatches(String mensaId) {
     return _service.streamMatches(mensaId);
   }

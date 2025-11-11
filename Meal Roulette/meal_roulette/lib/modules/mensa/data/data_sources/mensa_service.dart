@@ -29,7 +29,8 @@ class MensaService {
       transaction.set(matchesRef, {
         'user1': matchedUid,
         'user2': uid,
-        'status': 'active',
+        'status': 'offered',
+        'mensaID': mensaId,
         'createdAt': FieldValue.serverTimestamp(),
       });
 
@@ -39,25 +40,6 @@ class MensaService {
     });
   }
 
-  /// Deletes a match document.
-  Future<void> deleteMatch(String mensaId, String matchId) async {
-    await _firestore
-        .collection('mensa_places')
-        .doc(mensaId)
-        .collection('matches')
-        .doc(matchId)
-        .delete();
-  }
-
-  /// Marks a match as completed.
-  Future<void> completeMatch(String mensaId, String matchId) async {
-    await _firestore
-        .collection('mensa_places')
-        .doc(mensaId)
-        .collection('matches')
-        .doc(matchId)
-        .update({'status': 'completed'});
-  }
 
   /// Returns real-time stream of all matches for a Mensa
   Stream<QuerySnapshot<Map<String, dynamic>>> streamMatches(String mensaId) {

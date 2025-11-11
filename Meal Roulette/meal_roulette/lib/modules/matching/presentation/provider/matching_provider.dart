@@ -32,9 +32,10 @@ class MatchingProvider extends ChangeNotifier{
 
     try {
       final matches = snapshot.data!;
-      final activeMatches = matches.where((m) => _matchService.isToday(m.timestamp)).toList();
-      final pastMatches = matches.where((m) => !_matchService.isToday(m.timestamp)).toList();
-      return selectedTab == 0 ? activeMatches : pastMatches;
+      final offeredMatches = matches.where((m) => m.status == "offered").toList();
+      final activeMatches = matches.where((m) => m.status == "active").toList();
+      final pastMatches = matches.where((m) => m.status == "past").toList();
+      return selectedTab == 0 ? offeredMatches : selectedTab == 1 ? activeMatches : pastMatches;
     }catch(e){
       if (kDebugMode) {
         print(e);
@@ -43,7 +44,8 @@ class MatchingProvider extends ChangeNotifier{
     return null;
   }
 
-  String? fetchUserIdOfOtherUser(MatchModel match) {
+  String? fetchUserIdOfOtherUser(MatchModel? match) {
+    if(match == null) return "";
     if (match.userId1 == _auth.currentUser!.uid) {
       return match.userId2;
     }else{
@@ -82,6 +84,14 @@ class MatchingProvider extends ChangeNotifier{
 
     // Format to "dd MMM yyyy"
     return DateFormat('dd MMM yyyy').format(dateTime);
+  }
+
+  Future<void> completeMatch(String mensaId, String matchId, String status) async {
+    await _matchService.completeMatch(mensaId, matchId, status);
+  }
+
+  Future<void> deleteMatch(String mensaId, String matchId) async {
+    await _matchService.deleteMatch(mensaId, matchId);
   }
 
 }
