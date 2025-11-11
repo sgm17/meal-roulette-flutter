@@ -2,15 +2,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_roulette/configs/resources/resources.dart';
 import 'package:meal_roulette/configs/resources/sizing.dart';
-import 'package:meal_roulette/modules/matching/data/models/matching_models.dart';
+import 'package:meal_roulette/modules/auth/data/models/user_model.dart';
+import 'package:meal_roulette/modules/matching/data/models/match_model.dart';
+import 'package:meal_roulette/modules/matching/presentation/provider/matching_provider.dart';
 import 'package:meal_roulette/modules/matching/presentation/widgets/contact_row.dart';
+import 'package:provider/provider.dart';
 
 class ProfileDetailSection extends StatelessWidget {
-  final MatchingModel match;
-  const ProfileDetailSection({required this.match});
+  final UserModel? user;
+  final MatchModel match;
+  const ProfileDetailSection({required this.user, required this.match});
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<MatchingProvider>(context);
     return AnimatedOpacity(
       opacity: 1,
       duration: const Duration(milliseconds: 400),
@@ -29,14 +34,14 @@ class ProfileDetailSection extends StatelessWidget {
 
             ContactRow(
               icon: Icons.email_outlined,
-              label: match.email,
+              label: user?.email ?? "-",
               color: R.colors.veryLightGrey.withValues(alpha: 0.5),
               textColor: R.colors.textBlack, iconColor: R.colors.red, heading: 'Email', iconBackGroundColor: R.colors.red.withValues(alpha: 0.1),
             ),
             SizedBox(height: 8.h),
             ContactRow(
               icon: Icons.phone_outlined,
-              label: match.phone,
+              label: user?.phone ?? "-",
               color: R.colors.veryLightGrey.withValues(alpha: 0.5),
               textColor: R.colors.textBlack, iconColor: R.colors.green, heading: 'Phone', iconBackGroundColor: R.colors.green.withValues(alpha: 0.1),
             ),
@@ -55,7 +60,7 @@ class ProfileDetailSection extends StatelessWidget {
                   SizedBox(width: 8.w),
                   Expanded(
                     child: Text(
-                      "Lunch Date: ${match.lunchDate}",
+                      "Lunch Date: ${provider.getDate(match.timestamp)}",
                       style: R.textStyles.font12M.copyWith(color: R.colors.secondaryColor),
                     ),
                   ),

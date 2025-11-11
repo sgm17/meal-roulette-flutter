@@ -3,6 +3,6 @@ class Singleton {
   static Map<String, String> header = {"token": token};
   static Map<String, String> headerNoAuth = {'Accept': 'application/json'};
 
-  static int? selectedMensaId = 0;
+  static String selectedMensaId = "0JQ53ZlQ6ShiF4Wpzzn6";
 
 }

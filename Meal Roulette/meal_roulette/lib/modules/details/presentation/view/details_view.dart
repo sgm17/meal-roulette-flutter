@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:meal_roulette/configs/common_widgets/gradient_text.dart';
 import 'package:meal_roulette/configs/resources/resources.dart';
 import 'package:meal_roulette/configs/resources/sizing.dart';
@@ -9,7 +8,6 @@ import 'package:meal_roulette/modules/details/presentation/widgets/header_image.
 import 'package:meal_roulette/modules/details/presentation/widgets/info_card.dart';
 import 'package:meal_roulette/configs/common_widgets/tag_chip.dart';
 import 'package:meal_roulette/modules/mensa/data/models/mensa_models.dart';
-import 'package:meal_roulette/routes/app_routes_constants.dart';
 
 /// Canteen detail screen: Sliver-based, responsive, adaptive, and animated.
 /// Single-screen, ready to be wired into your app.
@@ -236,7 +234,7 @@ class _DetailsViewState extends State<DetailsView> {
                   ),
                   SizedBox(height: 24.h),
                   // CTA area
-                  FilledButton(
+                 /* FilledButton(
                     onPressed: () {
                       context.goNamed(AppRouteConstants.matches);
                     },
@@ -262,7 +260,7 @@ class _DetailsViewState extends State<DetailsView> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 36),
+                  const SizedBox(height: 36),*/
                 ]),
               ),
             ),

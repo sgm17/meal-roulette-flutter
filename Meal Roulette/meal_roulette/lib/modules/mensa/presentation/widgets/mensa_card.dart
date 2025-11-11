@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:meal_roulette/configs/resources/resources.dart';
 import 'package:meal_roulette/configs/resources/sizing.dart';
+import 'package:meal_roulette/configs/utils/singleton.dart';
 import 'package:meal_roulette/modules/mensa/data/models/mensa_models.dart';
+import 'package:meal_roulette/modules/notifications/data/data_sources/match_listener_service.dart';
 import 'package:meal_roulette/routes/app_routes.dart';
 import 'package:meal_roulette/routes/app_routes_constants.dart';
 import 'package:provider/provider.dart';
@@ -81,6 +83,8 @@ class MensaCard extends StatelessWidget {
                       ScaffoldMessenger.of(getContext()).showSnackBar(
                         const SnackBar(content: Text('Searching for a match...')),
                       );
+                      MatchListenerService(mensaModel.id);
+                      Singleton.selectedMensaId = mensaModel.id;
                       //context.goNamed(AppRouteConstants.matches);
                     },
                     style: FilledButton.styleFrom(
