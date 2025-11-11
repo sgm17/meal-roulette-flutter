@@ -70,13 +70,7 @@ class MensaProvider extends ChangeNotifier{
     }
   }
 
-  Future<void> completeMatch(String mensaId, String matchId) async {
-    await _repository.completeMatch(mensaId, matchId);
-  }
 
-  Future<void> deleteMatch(String mensaId, String matchId) async {
-    await _repository.deleteMatch(mensaId, matchId);
-  }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getMatches(String mensaId) {
     return _repository.getMatches(mensaId);
