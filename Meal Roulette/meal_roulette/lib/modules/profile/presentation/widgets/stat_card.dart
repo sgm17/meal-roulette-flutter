@@ -17,14 +17,10 @@ class StatCard extends StatefulWidget {
 }
 
 class _StatCardState extends State<StatCard> {
-  bool _pressed = false;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTapDown: (_) => setState(() => _pressed = true),
-      onTapUp: (_) => setState(() => _pressed = false),
-      onTapCancel: () => setState(() => _pressed = false),
       child: Stack(
         clipBehavior: Clip.none,
         children: [

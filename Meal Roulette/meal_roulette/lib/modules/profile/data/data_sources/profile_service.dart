@@ -76,4 +76,15 @@ class ProfileService {
       'lastSeen': FieldValue.serverTimestamp(),
     });
   }
+
+  Future<void> deleteUserAccount() async {
+    final user = _auth.currentUser;
+    if (user == null) throw Exception('No authenticated user found.');
+
+    // Step 1: Delete Firestore document
+    await _firestore.collection('users').doc(user.uid).delete();
+
+    // Step 2: Delete Authentication record
+    await user.delete();
+  }
 }

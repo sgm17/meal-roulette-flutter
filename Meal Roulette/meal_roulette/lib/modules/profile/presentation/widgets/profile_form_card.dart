@@ -8,6 +8,7 @@ import 'package:meal_roulette/modules/profile/presentation/provider/profile_prov
 import 'package:meal_roulette/modules/profile/presentation/widgets/profile_form_textfield.dart';
 import 'package:meal_roulette/routes/app_routes.dart';
 import 'package:meal_roulette/routes/app_routes_constants.dart';
+import 'package:provider/provider.dart';
 
 /// Profile form card that toggles between read-only view and editable fields.
 /// Uses AnimatedSize and AnimatedOpacity to animate layout changes smoothly.
@@ -181,6 +182,14 @@ class _ProfileFormCardState extends State<ProfileFormCard> with TickerProviderSt
                     ),
                   ],
                 ),
+                SizedBox(height: 20.h),
+                GestureDetector(
+                  child: Center(child: Text('Delete Account Permanently?', style: TextStyle(fontSize: 10.sp))),
+                  onTap: () {
+                    Provider.of<ProfileProvider>(getContext(), listen: false).handleDeleteAccount();
+                  },
+                ),
+                SizedBox(height: 36.h),
               ],
             ),
           ),

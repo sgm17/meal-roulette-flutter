@@ -138,7 +138,7 @@ class _ProfileViewState extends State<ProfileView> {
                     ),
 
 
-                    SizedBox(height: 20.h),
+
 
                   ],
                 ),

@@ -1,7 +1,12 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:meal_roulette/configs/utils/aap_utils.dart';
 import 'package:meal_roulette/modules/auth/data/models/user_model.dart';
 import 'package:meal_roulette/modules/profile/data/data_sources/profile_service.dart';
+import 'package:meal_roulette/routes/app_routes.dart';
+import 'package:meal_roulette/routes/app_routes_constants.dart';
 
 /// Provider (ChangeNotifier) that exposes profile data and convenience methods.
 /// UI can listen to this provider for reactive updates.
@@ -90,6 +95,29 @@ class ProfileProvider extends ChangeNotifier {
     } finally {
       _loading = false;
       notifyListeners();
+    }
+  }
+
+  Future<void> handleDeleteAccount() async {
+    final confirm = await Utils().showDeleteConfirmationDialog();
+
+    if (confirm == true) {
+      try {
+        await _service.deleteUserAccount();
+
+        if (getContext().mounted) {
+          ScaffoldMessenger.of(getContext()).showSnackBar(
+            const SnackBar(content: Text('Account deleted successfully.')),
+          );
+          // Delay navigation slightly to let old widgets unmount
+          await Future.delayed(const Duration(milliseconds: 200));
+          getContext().goNamed(AppRouteConstants.auth);
+        }
+      } catch (e) {
+        ScaffoldMessenger.of(getContext()).showSnackBar(
+          SnackBar(content: Text('Error: ${e.toString()}')),
+        );
+      }
     }
   }
 

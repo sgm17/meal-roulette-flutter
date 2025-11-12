@@ -12,6 +12,41 @@ import 'package:meal_roulette/routes/app_routes.dart';
 
 class Utils {
 
+  Future<bool?> showDeleteConfirmationDialog() async {
+    return showDialog<bool>(
+      context: getContext(),
+      builder: (context) => AlertDialog(
+        backgroundColor: R.colors.white,
+        title: Text(
+          'Delete Account',
+          style: R.textStyles.font12B,
+        ),
+        content: Text(
+          'Are you sure you want to permanently delete your account? '
+              'This action cannot be undone.',
+          style: R.textStyles.font11R.copyWith(color: R.colors.textGrey),
+        ),
+        actions: [
+
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: R.colors.veryLightGrey,
+            ),
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text('Cancel', style: R.textStyles.font11B.copyWith(color: R.colors.textBlack),),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: R.colors.red,
+            ),
+            onPressed: () => Navigator.of(context).pop(true),
+            child:  Text('Delete', style: R.textStyles.font11B.copyWith(color: R.colors.white),),
+          ),
+        ],
+      ),
+    );
+  }
+
   /// Custom transition for all pages
   CustomTransitionPage<T> buildPageWithSlideTransition<T>({
     required BuildContext context,
