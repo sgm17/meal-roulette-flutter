@@ -14,16 +14,27 @@ class MensaView extends StatefulWidget {
 }
 
 class _MensaViewState extends State<MensaView> {
-  bool _isInit = true;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<MensaProvider>().fetchMensas();
+    });
+  }
+
+  @override
+  Future<void> didChangeDependencies()  async {
+    super.didChangeDependencies();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await Provider.of<MensaProvider>(context).initializeJoinStatuses();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<MensaProvider>(context);
-    if (_isInit) {
-      provider.fetchMensas();
-      _isInit = false;
-    }
-    final mensa = provider.mensas;
+
 
     return Scaffold(
       backgroundColor: R.colors.white,
@@ -55,7 +66,7 @@ class _MensaViewState extends State<MensaView> {
       ),
       body: provider.isLoading
           ? const Center(child: CircularProgressIndicator())
-          : MensaList(mensaModels: mensa),
+          : MensaList(),
     );
   }
 }

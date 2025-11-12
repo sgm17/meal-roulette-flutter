@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:meal_roulette/configs/resources/resources.dart';
 import 'package:meal_roulette/configs/resources/sizing.dart';
-import 'package:meal_roulette/configs/utils/singleton.dart';
 import 'package:meal_roulette/modules/mensa/data/models/mensa_models.dart';
-import 'package:meal_roulette/modules/notifications/data/data_sources/match_listener_service.dart';
-import 'package:meal_roulette/routes/app_routes.dart';
 import 'package:meal_roulette/routes/app_routes_constants.dart';
 import 'package:provider/provider.dart';
 
@@ -15,14 +12,15 @@ import '../provider/mensa_provider.dart';
 class MensaCard extends StatelessWidget {
   final MensaModel mensaModel;
   final int index;
-  const MensaCard({super.key, required this.mensaModel, required this.index});
+  final bool joinedStatus;
+  const MensaCard({super.key, required this.mensaModel, required this.index, required this.joinedStatus});
 
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<MensaProvider>();
     return Card(
       color: R.colors.white,
-      elevation: 1,
+      elevation: 3,
       margin: EdgeInsets.symmetric(vertical: 4.h),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       clipBehavior: Clip.antiAlias,
@@ -79,17 +77,13 @@ class MensaCard extends StatelessWidget {
                   SizedBox(height: 8.h),
                   FilledButton(
                     onPressed: () async {
-                      await provider.findBuddy(mensaModel.id);
-                      ScaffoldMessenger.of(getContext()).showSnackBar(
-                        const SnackBar(content: Text('Searching for a match...')),
-                      );
-                      MatchListenerService(mensaModel.id);
-                      Singleton.selectedMensaId = mensaModel.id;
+                      await provider.toggleJoinPool(mensaModel.id);
+
                       //context.goNamed(AppRouteConstants.matches);
                     },
                     style: FilledButton.styleFrom(
                       minimumSize: Size.fromHeight(38.h),
-                      backgroundColor: R.colors.primaryColor,
+                      backgroundColor: joinedStatus ? R.colors.green : R.colors.primaryColor,
                       foregroundColor: R.colors.white,
                       padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 8.h), // ← internal padding
                     ),
@@ -100,7 +94,7 @@ class MensaCard extends StatelessWidget {
                         Icon(Icons.local_dining_outlined, color: R.colors.white, size: 16.sp,),
                         SizedBox(width: 4.w), // ← adjust this to control spacing (default ~8)
                         Flexible(
-                          child: Text('Find Lunch Buddy', style: R.textStyles.font11M.copyWith(color: R.colors.white), maxLines: 1, softWrap: true, overflow: TextOverflow.ellipsis,),
+                          child: Text(joinedStatus ? 'Leave Pool' : 'Find Lunch Buddy', style: R.textStyles.font11M.copyWith(color: R.colors.white), maxLines: 1, softWrap: true, overflow: TextOverflow.ellipsis,),
                         ),
                       ],
                     ),

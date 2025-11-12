@@ -1,26 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:meal_roulette/configs/resources/sizing.dart';
-import 'package:meal_roulette/modules/mensa/data/models/mensa_models.dart';
+import 'package:meal_roulette/modules/mensa/presentation/provider/mensa_provider.dart';
+import 'package:provider/provider.dart';
 
 import 'mensa_card.dart';
 
 class MensaList extends StatelessWidget {
-  final List<MensaModel> mensaModels;
-
-  const MensaList({super.key, required this.mensaModels});
+  const MensaList({super.key});
 
   @override
   Widget build(BuildContext context) {
     // Responsive column count
     final crossAxisCount = MediaQuery.of(context).size.width < 600 ? 2 : 4;
-    //final crossAxisCount = MediaQuery.of(context).size.width < 600 ? 2 : 4;
+    final provider = Provider.of<MensaProvider>(context);
 
     return LayoutBuilder(
       builder: (context, constraints) {
         return GridView.builder(
           padding: const EdgeInsets.all(12),
           physics: const BouncingScrollPhysics(),
-          itemCount: mensaModels.length,
+          itemCount: provider.mensas.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: crossAxisCount,
             crossAxisSpacing: 8.w,
@@ -28,8 +27,8 @@ class MensaList extends StatelessWidget {
             childAspectRatio: 0.6, // Try between 0.6–0.8
           ),
           itemBuilder: (context, index) {
-            final mensa = mensaModels[index];
-
+            final mensa = provider.mensas[index];
+            final hasJoined = provider.joinStatus[mensa.id] ?? false;
             // Smooth animated entry when scrolling
             return TweenAnimationBuilder<double>(
               duration: Duration(milliseconds: 250 + (index * 60)),
@@ -44,7 +43,7 @@ class MensaList extends StatelessWidget {
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
                 curve: Curves.easeInOut,
-                child: MensaCard(mensaModel: mensa, index: index),
+                child: MensaCard(mensaModel: mensa, index: index, joinedStatus: hasJoined),
               ),
             );
           },
