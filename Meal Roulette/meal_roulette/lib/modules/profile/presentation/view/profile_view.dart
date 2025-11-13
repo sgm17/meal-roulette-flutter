@@ -39,7 +39,9 @@ class _ProfileViewState extends State<ProfileView> {
     // The provider should have been created and injected higher in the tree.
 
    //final provider = context.read<ProfileProvider>();
-    providerX.startListening();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      providerX.startListening();
+    });
   }
 
   @override
@@ -130,7 +132,6 @@ class _ProfileViewState extends State<ProfileView> {
 
                     // Profile information form/card (expandable editing)
                     ProfileFormCard(
-                      key: ValueKey(_editing),
                       editing: _editing,
                       user: user,
                       isSaving: _isSaving,

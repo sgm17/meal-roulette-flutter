@@ -27,7 +27,7 @@ class _MensaViewState extends State<MensaView> {
   Future<void> didChangeDependencies()  async {
     super.didChangeDependencies();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await Provider.of<MensaProvider>(context).initializeJoinStatuses();
+      await Provider.of<MensaProvider>(context, listen: false).initializeJoinStatuses();
     });
   }
 
