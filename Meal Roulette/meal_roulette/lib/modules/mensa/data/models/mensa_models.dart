@@ -1,6 +1,5 @@
 
 
-
 class MensaModel {
   final String id;
   final String name;
@@ -9,6 +8,8 @@ class MensaModel {
   final String time;
   final int capacity;
   final String imageUrl;
+  final List<String> pool;       // Array of user IDs or references
+  final bool isJoined;
 
   MensaModel({
     required this.id,
@@ -18,6 +19,8 @@ class MensaModel {
     required this.time,
     required this.capacity,
     required this.imageUrl,
+    required this.pool,
+    required this.isJoined,
   });
 
   factory MensaModel.fromMap(Map<String, dynamic> data, String documentId) {
@@ -29,6 +32,10 @@ class MensaModel {
       time: data['time'] ?? '',
       capacity: data['capacity'] ?? 0,
       imageUrl: data['imageUrl'] ?? '',
+      pool: data['pool'] != null
+          ? List<String>.from(data['pool'])
+          : <String>[],
+      isJoined: data['isJoined'] ?? false,
     );
   }
 
@@ -40,6 +47,8 @@ class MensaModel {
       'time': time,
       'capacity': capacity,
       'imageUrl': imageUrl,
+      'pool': pool,
+      'isJoined': isJoined,
     };
   }
 }

@@ -16,6 +16,22 @@ class MensaRepository {
     }
   }
 
+  Future<void> leaveQueue(String mensaId, String uid) async {
+    try {
+      await _service.leaveMensaQueue(mensaId, uid);
+    } catch (e) {
+      throw Exception('Failed to leave queue: $e');
+    }
+  }
+
+  Future<bool> hasJoinedPool(String mensaId) async {
+    try {
+      return await _service.hasJoinedPool(mensaId);
+    } catch (e) {
+      throw Exception('Failed to leave queue: $e');
+    }
+  }
+
   Stream<QuerySnapshot<Map<String, dynamic>>> getMatches(String mensaId) {
     return _service.streamMatches(mensaId);
   }

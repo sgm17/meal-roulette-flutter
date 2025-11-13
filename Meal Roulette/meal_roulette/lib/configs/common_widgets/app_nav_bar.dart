@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:meal_roulette/configs/resources/resources.dart';
 import 'package:meal_roulette/configs/resources/sizing.dart';
+import 'package:meal_roulette/modules/matching/presentation/view/matching_view.dart';
+import 'package:meal_roulette/modules/mensa/presentation/view/mensa_view.dart';
+import 'package:meal_roulette/modules/profile/presentation/view/profile_view.dart';
 import 'package:meal_roulette/routes/app_routes_constants.dart';
+
 
 class AppNavBar extends StatefulWidget {
   final Widget child;
@@ -16,6 +20,11 @@ class AppNavBar extends StatefulWidget {
 class _AppNavBarState extends State<AppNavBar> {
   int currentIndex = 0;
   int previousIndex = 0;
+  final List<Widget> _screens = [
+    const MensaView(),
+    const MatchingView(),
+    const ProfileView(),
+  ];
 
   final tabs = [_NavItem(icon: Icons.home_rounded, label: 'Home', route: AppRouteConstants.home), _NavItem(icon: Icons.people_alt_rounded, label: 'Match', route: AppRouteConstants.matches), _NavItem(icon: Icons.person_rounded, label: 'Profile', route: AppRouteConstants.profile)];
 
@@ -24,19 +33,10 @@ class _AppNavBarState extends State<AppNavBar> {
     final location = GoRouterState.of(context).uri.toString();
     currentIndex = _getSelectedIndex(location);
 
-    // Determine the direction for slide animation
-    final isForward = currentIndex >= previousIndex;
-
     return Scaffold(
-      body: SafeArea(
-        child: AnimatedSwitcher(
-          duration: const Duration(milliseconds: 400),
-          transitionBuilder: (child, animation) {
-            final offsetAnimation = Tween<Offset>(begin: Offset(isForward ? 1.0 : -1.0, 0), end: Offset.zero).animate(CurvedAnimation(parent: animation, curve: Curves.easeInOutCubic));
-            return SlideTransition(position: offsetAnimation, child: child);
-          },
-          child: KeyedSubtree(key: ValueKey(location), child: widget.child),
-        ),
+      body: IndexedStack(
+        index: currentIndex,
+        children: _screens,
       ),
       bottomNavigationBar: NavigationBarTheme(
         data: NavigationBarThemeData(
@@ -62,10 +62,15 @@ class _AppNavBarState extends State<AppNavBar> {
           elevation: 5,
           indicatorColor: R.colors.red,
           selectedIndex: currentIndex,
+          /*onDestinationSelected: (index) {
+            context.go(tabs[index].route);
+          },*/
           onDestinationSelected: (index) {
+            setState(() => currentIndex = index);
             context.go(tabs[index].route);
           },
           destinations: tabs.map((tab) => NavigationDestination(icon: Icon(tab.icon), label: tab.label)).toList(),
+
         ),
       ),
     );
