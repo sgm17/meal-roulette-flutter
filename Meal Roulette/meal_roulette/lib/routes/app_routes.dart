@@ -56,16 +56,20 @@ class AppRoutes {
             name: AppRouteConstants.home,
             pageBuilder: (context, state) => NoTransitionPage(child: MensaView()),
             routes: [
-              GoRoute(
-                path: AppRouteConstants.details,
+              /*GoRoute(
+                path: 'details',
                 name: AppRouteConstants.details,
-                pageBuilder: (context, state) => Utils().buildPageWithRightToLeftTransition(
+               *//* pageBuilder: (context, state) => Utils().buildPageWithRightToLeftTransition(
                   context: context,
                   state: state,
                   child: DetailsView(mensa: state.extra as MensaModel),
-                ),
+                ),*//*
+                builder: (context, state) {
+                  final mensa = state.extra as MensaModel;
+                  return DetailsView(mensa: mensa);
+                },
                 routes: [],
-              ),
+              ),*/
               // GoRoute(path: AppRouteConstants.notifications, name: AppRouteConstants.notifications, pageBuilder: (context, state) => NoTransitionPage(child: NotificationsView()), routes: []),
               // GoRoute(path: AppRouteConstants.settings, name: AppRouteConstants.settings, pageBuilder: (context, state) => NoTransitionPage(child: SettingsView()), routes: []),
               // GoRoute(path: AppRouteConstants.contact, name: AppRouteConstants.contact, pageBuilder: (context, state) => NoTransitionPage(child: ContactView()), routes: []),
@@ -86,6 +90,17 @@ class AppRoutes {
             routes: [],
           ),
         ],
+      ),
+
+      GoRoute(
+        path: AppRouteConstants.details,
+        name: AppRouteConstants.details,
+         pageBuilder: (context, state) => Utils().buildPageWithRightToLeftTransition(
+                  context: context,
+                  state: state,
+                  child: DetailsView(mensa: state.extra as MensaModel),
+                ),
+        routes: [],
       ),
     ],
   );
