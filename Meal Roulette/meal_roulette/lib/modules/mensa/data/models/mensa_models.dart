@@ -83,3 +83,25 @@ class MensaModel {
     };
   }
 }
+
+
+// Example demo data (used by screen)
+final demoCanteen = MensaModel(
+  id: 'main-campus',
+  name: 'Main Campus Dining',
+  tags: '',
+  location: 'Central Building, Floor 1',
+  time: '11:00 AM - 3:00 PM',
+  capacity: 200,
+  imageUrl: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836',
+  pool: const [],
+  rating: '4.5',
+  description:
+  'The largest and most diverse dining hall on campus, offering a wide variety of international cuisines. Perfect for students looking to explore different flavors and meet people from various backgrounds.',
+  operatingHours: 'Peak Hours: 12:00 PM - 1:00 PM',
+  pricing: '\$ CHF 8-15',
+
+  popularDishes: const ['Pad Thai', 'Mediterranean Bowl', 'Vegetarian Curry', 'Sushi Rolls'],
+foodVariety: const ['International', 'Asian', 'Vegetarian'],
+  features: const ['Free WiFi', 'Outdoor Seating', 'Vegan Options', 'Microwave'],
+);

@@ -14,7 +14,6 @@ class MensaView extends StatefulWidget {
 }
 
 class _MensaViewState extends State<MensaView> {
-
   @override
   void initState() {
     super.initState();
@@ -24,7 +23,7 @@ class _MensaViewState extends State<MensaView> {
   }
 
   @override
-  Future<void> didChangeDependencies()  async {
+  Future<void> didChangeDependencies() async {
     super.didChangeDependencies();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await Provider.of<MensaProvider>(context, listen: false).initializeJoinStatuses();
@@ -34,7 +33,6 @@ class _MensaViewState extends State<MensaView> {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<MensaProvider>(context);
-
 
     return Scaffold(
       backgroundColor: R.colors.white,
@@ -46,13 +44,11 @@ class _MensaViewState extends State<MensaView> {
             GradientText(
               'Welcome back, Demo User!',
               style: R.textStyles.font24B,
-              gradient: LinearGradient(
-                colors: [R.colors.splashGrad1, R.colors.splashGrad2],
-              ),
+              gradient: LinearGradient(colors: [R.colors.splashGrad1, R.colors.splashGrad2]),
             ),
             Container(
               alignment: Alignment.center,
-              padding:  EdgeInsets.only( bottom: 16.h),
+              padding: EdgeInsets.only(bottom: 16.h),
               child: Text(
                 'Ready to meet someone new over lunch today?',
                 style: R.textStyles.font11R.copyWith(color: R.colors.textGrey),
@@ -64,9 +60,12 @@ class _MensaViewState extends State<MensaView> {
         ),
         elevation: 0,
       ),
-      body: provider.isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : MensaList(),
+      body: Stack(
+        children: [
+          MensaList(),
+          if (provider.isLoading)  Center(child: CircularProgressIndicator(backgroundColor: R.colors.transparent,)),
+        ],
+      ),
     );
   }
 }

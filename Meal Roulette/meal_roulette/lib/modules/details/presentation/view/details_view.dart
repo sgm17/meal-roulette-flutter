@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:meal_roulette/configs/common_widgets/gradient_text.dart';
 import 'package:meal_roulette/configs/resources/resources.dart';
 import 'package:meal_roulette/configs/resources/sizing.dart';
-import 'package:meal_roulette/modules/details/data/models/details_models.dart';
 import 'package:meal_roulette/modules/details/presentation/widgets/feature_row.dart';
 import 'package:meal_roulette/modules/details/presentation/widgets/header_image.dart';
 import 'package:meal_roulette/modules/details/presentation/widgets/info_card.dart';
@@ -21,7 +20,7 @@ class DetailsView extends StatefulWidget {
 
 class _DetailsViewState extends State<DetailsView> {
   // In a real app, this would come from ViewModel / provider
-  final DetailsModel canteen = demoCanteen;
+  final MensaModel canteen = demoCanteen;
   bool _showMoreDescription = false;
 
   @override
@@ -88,7 +87,7 @@ class _DetailsViewState extends State<DetailsView> {
                         children: [
                           Icon(Icons.star_rounded, color: R.colors.splashGrad2, size: 18.sp),
                           SizedBox(width: 6.w),
-                          Text(canteen.rating.toStringAsFixed(1), style: R.textStyles.font12B),
+                          Text(canteen.rating, style: R.textStyles.font12B),
                         ],
                       ),
                     ],
@@ -144,20 +143,20 @@ class _DetailsViewState extends State<DetailsView> {
                         return Row(
                           children: [
                             Expanded(
-                              child: InfoCard(title: 'Operating Hours', subtitle: widget.mensa.time, peakHours: canteen.peakHours, icon: Icons.schedule),
+                              child: InfoCard(title: 'Operating Hours', subtitle: widget.mensa.time, peakHours: canteen.operatingHours, icon: Icons.schedule),
                             ),
                             SizedBox(width: 8.w),
                             Expanded(
-                              child: InfoCard(title: 'Capacity & Pricing', subtitle: widget.mensa.capacity.toString(), peakHours: canteen.priceRange, icon: Icons.people_outline),
+                              child: InfoCard(title: 'Capacity & Pricing', subtitle: widget.mensa.capacity.toString(), peakHours: canteen.pricing, icon: Icons.people_outline),
                             ),
                           ],
                         );
                       }else {
                         return Column(
                           children: [
-                            InfoCard(title: 'Operating Hours', subtitle: widget.mensa.time, peakHours: canteen.peakHours, icon: Icons.schedule),
+                            InfoCard(title: 'Operating Hours', subtitle: widget.mensa.time, peakHours: canteen.operatingHours, icon: Icons.schedule),
                             SizedBox(height: 12.h),
-                            InfoCard(title: 'Capacity & Pricing', subtitle: widget.mensa.capacity.toString(), peakHours: canteen.priceRange, icon: Icons.people_outline),
+                            InfoCard(title: 'Capacity & Pricing', subtitle: widget.mensa.capacity.toString(), peakHours: canteen.pricing, icon: Icons.people_outline),
                           ],
                         );
                       }
@@ -206,7 +205,7 @@ class _DetailsViewState extends State<DetailsView> {
                         Text('Cuisine Types', style: R.textStyles.font12B),
                         SizedBox(height: 12.h),
                         Wrap(
-                          children: canteen.cuisineTypes.map((d) => TagChip(label: d, color: R.colors.red, textColor: R.colors.white)).toList(),
+                          children: canteen.foodVariety.map((d) => TagChip(label: d, color: R.colors.red, textColor: R.colors.white)).toList(),
                         ),
                       ],
                     ),
@@ -227,7 +226,7 @@ class _DetailsViewState extends State<DetailsView> {
                         Text('Amenities & Features', style: R.textStyles.font12B),
                         SizedBox(height: 12.h),
                         Wrap(
-                          children: canteen.amenities.map((d) => FeatureRow(d)).toList(),
+                          children: canteen.features.map((d) => FeatureRow(d)).toList(),
                         ),
                       ],
                     ),

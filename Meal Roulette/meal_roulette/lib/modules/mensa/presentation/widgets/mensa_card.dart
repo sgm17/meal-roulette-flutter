@@ -18,6 +18,7 @@ class MensaCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<MensaProvider>();
+
     return Card(
       color: R.colors.white,
       elevation: 3,
@@ -75,11 +76,10 @@ class MensaCard extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 8.h),
+                  // Primary action
                   FilledButton(
-                    onPressed: () async {
+                    onPressed: provider.isLoading ? null : () async {
                       await provider.toggleJoinPool(mensaModel.id);
-
-                      //context.goNamed(AppRouteConstants.matches);
                     },
                     style: FilledButton.styleFrom(
                       minimumSize: Size.fromHeight(38.h),
@@ -87,17 +87,17 @@ class MensaCard extends StatelessWidget {
                       foregroundColor: R.colors.white,
                       padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 8.h), // ← internal padding
                     ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min, // Keeps button size compact
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.local_dining_outlined, color: R.colors.white, size: 16.sp,),
-                        SizedBox(width: 4.w), // ← adjust this to control spacing (default ~8)
-                        Flexible(
-                          child: Text(joinedStatus ? 'Leave Pool' : 'Find Lunch Buddy', style: R.textStyles.font11M.copyWith(color: R.colors.white), maxLines: 1, softWrap: true, overflow: TextOverflow.ellipsis,),
-                        ),
-                      ],
-                    ),
+                    child:  Row(
+                    mainAxisSize: MainAxisSize.min, // Keeps button size compact
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.local_dining_outlined, color: R.colors.white, size: 16.sp,),
+                      SizedBox(width: 4.w), // ← adjust this to control spacing (default ~8)
+                      Flexible(
+                        child: Text(joinedStatus ? 'Leave Pool' : 'Find Lunch Buddy', style: R.textStyles.font11M.copyWith(color: R.colors.white), maxLines: 1, softWrap: true, overflow: TextOverflow.ellipsis,),
+                      ),
+                    ],
+                                        ),
                   ),
                 ],
               ),

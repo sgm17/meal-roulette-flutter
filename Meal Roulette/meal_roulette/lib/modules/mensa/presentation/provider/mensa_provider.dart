@@ -63,7 +63,8 @@ class MensaProvider extends ChangeNotifier{
 
   Future<void> toggleJoinPool(String mensaId) async {
     final current = joinStatus[mensaId] ?? false;
-    joinStatus[mensaId] = !current;
+
+    _isLoading = true;
     notifyListeners(); // immediate UI update
 
     // Then update backend asynchronously
@@ -78,8 +79,6 @@ class MensaProvider extends ChangeNotifier{
 
 
   Future<void> joinPool(String mensaId) async {
-    _state = MensaState.loading;
-    notifyListeners();
 
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) {
@@ -89,17 +88,17 @@ class MensaProvider extends ChangeNotifier{
     try {
       await _repository.joinQueue(mensaId, user?.uid ?? "");
       _state = MensaState.matched;
+      joinStatus[mensaId] = true;
     } catch (e) {
       _errorMessage = e.toString();
       _state = MensaState.error;
     } finally {
+      _isLoading = false;
       notifyListeners();
     }
   }
 
  Future<void> leavePool(String mensaId) async {
-    _state = MensaState.loading;
-    notifyListeners();
 
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) {
@@ -109,10 +108,12 @@ class MensaProvider extends ChangeNotifier{
     try {
       await _repository.leaveQueue(mensaId, user?.uid ?? "");
       _state = MensaState.matched;
+      joinStatus[mensaId] = false;
     } catch (e) {
       _errorMessage = e.toString();
       _state = MensaState.error;
     } finally {
+      _isLoading = false;
       notifyListeners();
     }
   }
